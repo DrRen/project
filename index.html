@@ -17,7 +17,7 @@
         <script type="text/javascript" src="http://canvg.github.io/canvg/canvg.js"></script> 
         <link rel="stylesheet" href="style.css">
     </head>
-    <body onload=map()>
+    <body onload=house()>
         <canvas id='canva' width="1960" height="941">Обновите браузер</canvas>
         <div border="1" class="pickbox">
         <input id="checkbox" onchange=ant4g(this) type="checkbox">
@@ -30,8 +30,8 @@
             img = new Thing('house.png',0,0,1560,941),
             antena4g =  new Thing('4g.png',250,400,100,100);
             batch = new Map();
-        function map(){
-                    batch.set("map",img);
+        function house(){
+                    batch.set("house",img);
                     render();                
             }
         function ant4g(check){
