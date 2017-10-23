@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Test</title>
+        <script type="text/javascript">
+            
+            
+            
+            
+        </script>
+        <script type="text/javascript" src="house.js"></script>
+        <script type="text/javascript" src="http://canvg.github.io/canvg/rgbcolor.js"></script> 
+        <script type="text/javascript" src="http://canvg.github.io/canvg/StackBlur.js"></script>
+        <script type="text/javascript" src="http://canvg.github.io/canvg/canvg.js"></script> 
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body onload="map()">
+        <canvas id='canva' width="1960" height="941">Обновите браузер</canvas>
+        <div border="1" class="pickbox">
+        <input id="checkbox" onchange=ant4g(this) type="checkbox">4g antena        
+        </div>
+        
+    <script>
+        var canva = document.getElementById("canva"),
+            ctx = canva.getContext('2d'),
+            pic = new Image(),
+            antena4g = new Image();
+            batch = new Map();
+        function map(){
+                
+                pic.src    = 'house.png';  
+                pic.onload = function() {
+                    batch.set("map",pic);
+                    render();
+                //ctx.drawImage(pic, 0, 0, 1560, 941);
+                }
+                
+                   
+            }
+        function ant4g(check){
+                if (check.checked){
+                    antena4g.src    = '4g.png';  
+                    antena4g.onload = function() {
+                        batch.set("4g",antena4g);
+                        render();
+                    }
+                } else {
+                    batch.delete("4g");
+                    render();
+                }
+            
+        }
+        function render() {
+            for (var key of batch.keys()){
+                ctx.drawImage(batch.get(key), 500, 500);
+            }
+        }
+    </script>
+    </body>
+</html>
