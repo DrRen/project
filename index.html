@@ -18,23 +18,37 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body onload=house()>
-        <canvas id='canva' width="1560" height="941">Обновите браузер</canvas>
-        <div border="1" class="pickbox">
-        <input id="checkbox" onchange=ant4g(this) type="checkbox">
-        <label for="checkbox">4g Антена</label>
+        <div class="map">
+            <canvas id='canva' width="1560" height="941">Обновите браузер</canvas>
+            <div class="pickbox">
+                <ul class="menu">                
+                    <li>
+                        <input id="4g" onchange=ant4g(this) type="checkbox">
+                        <label for="4g"><div>4g антена</div></label>
+                        <div>4000руб.</div>
+                    </li>
+                    <li>
+                        <input id="router" onchange=rout(this) type="checkbox">
+                        <label for="router"><div>Wi-Fi роутер</div></label>
+                        <div>1500руб.</div>
+                    </li>
+                </ul>
+                <div class="calc" id="calculator"></div>
+            </div>
         </div>
-        
     <script>
         var canva = document.getElementById("canva"),
             ctx = canva.getContext('2d'),
             img = new Thing('house.png',0,0,1560,941),
             antena4g =  new Thing('4g.png',250,400,100,100);
+            router =  new Thing('4g.png',550,400,50,50);
             batch = new Map();
         function house(){
                     batch.set("house",img);
                     render();                
-            }
+        }
         function ant4g(check){
+            calc();
                 if (check.checked){
                         batch.set("4g",antena4g);
                         render();
@@ -44,9 +58,36 @@
                 }
             
         }
+        function rout(check){
+            calc();
+                if (check.checked){
+                        batch.set("router",router);
+                        render();
+                } else {
+                    batch.delete("router");
+                    render();
+                }
+            
+        }
         function render() {
             for (var key of batch.keys()){
                 ctx.drawImage(batch.get(key).getPic(), batch.get(key).getX(), batch.get(key).getY(), batch.get(key).getPicWidth(), batch.get(key).getPicHeight());
+            }
+        }
+        function calc(){
+            var sum=0;
+            if (document.getElementById("4g").checked){
+                sum+=4000;
+            }
+            if (document.getElementById("router").checked){
+                sum+=1500;
+            }
+            if (sum!=0){
+                document.getElementById("calculator").setAttribute("style","display: block");
+                document.getElementById("calculator").innerHTML = "Итого: " + sum + "руб.";
+            } else {
+                document.getElementById("calculator").setAttribute("style","display: none");
+                document.getElementById("calculator").innerHTML = ""; 
             }
         }
     </script>
